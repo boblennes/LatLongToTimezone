@@ -17,21 +17,32 @@
  */
 class LatLongToTimezone
 {
-	// ------------------------------------------------------------------------
 	/**
-	 * Main entry point, does the magical conversion
-	 *
-	 * @param  double  $lat  Latitude Coordinate
-	 * @param  double  $long   Longitude Coordinate 
-	 * @return string Timezone
+	 * @var LatLongToTimezone
 	 */
+	protected static $_instance;
 	
-	public function convert($lat, $lng)
+	/**
+	 * gets instance of this class
+	 *
+	 * @return LatLongToTimezone
+	 */
+	public static function getInstance()
 	{
-		return timezoneStrings[kdLookupRoot($lat,$lng)];
+		if (self::$_instance === null) {
+			self::$_instance = new self();
+		}
+		return self::$_instance;
 	}
 
-	private static array timezoneStrings = {
+	protected static $timezoneStrings;
+	
+	/**
+	 * constructor
+	 */
+	public function __construct()
+	{
+		$this->timezoneStrings = array(
 	"unknown",
 	"America/Dominica",
 	"America/St_Vincent",
@@ -441,7 +452,24 @@ class LatLongToTimezone
 	"Europe/Gibraltar",
 	"Asia/Urumqi",
 	"America/Mazatlan"
-	};
+	);
+	}
+
+
+
+	// ------------------------------------------------------------------------
+	/**
+	 * Main entry point, does the magical conversion
+	 *
+	 * @param  double  $lat  Latitude Coordinate
+	 * @param  double  $long   Longitude Coordinate 
+	 * @return string Timezone
+	 */
+	
+	public function convert($lat, $lng)
+	{
+		return $this->timezoneStrings[self::kdLookupRoot($lat,$lng)];
+	}
 
 	private static function kdLookup0($lat, $lng)
 	{
@@ -1468,7 +1496,7 @@ class LatLongToTimezone
 		}
 	   }
 	  } else {
-	   return kdLookup2($lat,$lng);
+	   return self::kdLookup2($lat,$lng);
 	  }
 	 } else {
 	  if ($lat < 39.0) {
@@ -2413,11 +2441,11 @@ class LatLongToTimezone
 		 }
 		}
 	   } else {
-		return kdLookup5($lat,$lng);
+		return self::kdLookup5($lat,$lng);
 	   }
 	  } else {
 	   if ($lat < 56.0) {
-		return kdLookup6($lat,$lng);
+		return self::kdLookup6($lat,$lng);
 	   } else {
 		if ($lng < -118.5) {
 		 if ($lat < 60.0) {
@@ -4536,7 +4564,7 @@ class LatLongToTimezone
 		 }
 		}
 	   } else {
-		return kdLookup13($lat,$lng);
+		return self::kdLookup13($lat,$lng);
 	   }
 	  }
 	 }
@@ -4949,7 +4977,7 @@ class LatLongToTimezone
 	  }
 	 } else {
 	  if ($lng < -62.0) {
-	   return kdLookup15($lat,$lng);
+	   return self::kdLookup15($lat,$lng);
 	  } else {
 	   if ($lat < -25.5) {
 		if ($lng < -58.0) {
@@ -6456,21 +6484,21 @@ class LatLongToTimezone
 		 }
 		}
 	   } else {
-		return kdLookup16($lat,$lng);
+		return self::kdLookup16($lat,$lng);
 	   }
 	  } else {
-	   return kdLookup17($lat,$lng);
+	   return self::kdLookup17($lat,$lng);
 	  }
 	 } else {
 	  if ($lng < -56.5) {
 	   if ($lat < -11.5) {
-		return kdLookup18($lat,$lng);
+		return self::kdLookup18($lat,$lng);
 	   } else {
-		return kdLookup19($lat,$lng);
+		return self::kdLookup19($lat,$lng);
 	   }
 	  } else {
 	   if ($lat < -11.5) {
-		return kdLookup20($lat,$lng);
+		return self::kdLookup20($lat,$lng);
 	   } else {
 		if ($lng < -51.0) {
 		 if ($lat < -6.0) {
@@ -6627,7 +6655,7 @@ class LatLongToTimezone
 		  }
 		 }
 		} else {
-		 return kdLookup21($lat,$lng);
+		 return self::kdLookup21($lat,$lng);
 		}
 	   }
 	  }
@@ -7980,7 +8008,7 @@ class LatLongToTimezone
 	 if ($lat < 22.5) {
 	  if ($lng < -56.5) {
 	   if ($lat < 11.0) {
-		return kdLookup27($lat,$lng);
+		return self::kdLookup27($lat,$lng);
 	   } else {
 		if ($lat < 16.5) {
 		 if ($lng < -62.0) {
@@ -9357,7 +9385,7 @@ class LatLongToTimezone
 	 if ($lat < 67.5) {
 	  if ($lng < -56.5) {
 	   if ($lat < 56.0) {
-		return kdLookup32($lat,$lng);
+		return self::kdLookup32($lat,$lng);
 	   } else {
 		if ($lat < 61.5) {
 		 if ($lng < -62.0) {
@@ -10085,11 +10113,11 @@ class LatLongToTimezone
 		}
 	   }
 	  } else {
-	   return kdLookup34($lat,$lng);
+	   return self::kdLookup34($lat,$lng);
 	  }
 	 } else {
 	  if ($lat < 11.0) {
-	   return kdLookup35($lat,$lng);
+	   return self::kdLookup35($lat,$lng);
 	  } else {
 	   if ($lng < -6.0) {
 		if ($lat < 16.0) {
@@ -10619,7 +10647,7 @@ class LatLongToTimezone
 	  }
 	 } else {
 	  if ($lat < 33.5) {
-	   return kdLookup37($lat,$lng);
+	   return self::kdLookup37($lat,$lng);
 	  } else {
 	   if ($lng < -6.0) {
 		if ($lat < 39.0) {
@@ -11085,14 +11113,14 @@ class LatLongToTimezone
 			}
 		   }
 		  } else {
-		   return kdLookup24($lat,$lng);
+		   return self::kdLookup24($lat,$lng);
 		  }
 		 } else {
-		  return kdLookup25($lat,$lng);
+		  return self::kdLookup25($lat,$lng);
 		 }
 		} else {
 		 if ($lng < -79.0) {
-		  return kdLookup26($lat,$lng);
+		  return self::kdLookup26($lat,$lng);
 		 } else {
 		  if ($lat < 33.5) {
 		   if ($lng < -73.5) {
@@ -11154,21 +11182,21 @@ class LatLongToTimezone
 		 }
 		}
 	   } else {
-		return kdLookup28($lat,$lng);
+		return self::kdLookup28($lat,$lng);
 	   }
 	  } else {
 	   if ($lng < -67.5) {
 		if ($lat < 67.5) {
 		 if ($lng < -79.0) {
-		  return kdLookup29($lat,$lng);
+		  return self::kdLookup29($lat,$lng);
 		 } else {
-		  return kdLookup30($lat,$lng);
+		  return self::kdLookup30($lat,$lng);
 		 }
 		} else {
-		 return kdLookup31($lat,$lng);
+		 return self::kdLookup31($lat,$lng);
 		}
 	   } else {
-		return kdLookup33($lat,$lng);
+		return self::kdLookup33($lat,$lng);
 	   }
 	  }
 	 } else {
@@ -11181,9 +11209,9 @@ class LatLongToTimezone
 		}
 	   } else {
 		if ($lat < 22.5) {
-		 return kdLookup36($lat,$lng);
+		 return self::kdLookup36($lat,$lng);
 		} else {
-		 return kdLookup38($lat,$lng);
+		 return self::kdLookup38($lat,$lng);
 		}
 	   }
 	  } else {
@@ -11242,7 +11270,7 @@ class LatLongToTimezone
 		 }
 		}
 	   } else {
-		return kdLookup39($lat,$lng);
+		return self::kdLookup39($lat,$lng);
 	   }
 	  }
 	 }
@@ -11617,7 +11645,7 @@ class LatLongToTimezone
 		   if ($lng < -124.0) {
 			return 39;
 		   } else {
-			return kdLookup1($lat,$lng);
+			return self::kdLookup1($lat,$lng);
 		   }
 		  }
 		 } else {
@@ -11745,24 +11773,24 @@ class LatLongToTimezone
 		   }
 		  } else {
 		   if ($lng < -101.5) {
-			return kdLookup3($lat,$lng);
+			return self::kdLookup3($lat,$lng);
 		   } else {
-			return kdLookup4($lat,$lng);
+			return self::kdLookup4($lat,$lng);
 		   }
 		  }
 		 }
 		} else {
 		 if ($lng < -112.5) {
-		  return kdLookup7($lat,$lng);
+		  return self::kdLookup7($lat,$lng);
 		 } else {
 		  if ($lat < 67.5) {
 		   if ($lng < -101.5) {
-			return kdLookup8($lat,$lng);
+			return self::kdLookup8($lat,$lng);
 		   } else {
-			return kdLookup9($lat,$lng);
+			return self::kdLookup9($lat,$lng);
 		   }
 		  } else {
-		   return kdLookup10($lat,$lng);
+		   return self::kdLookup10($lat,$lng);
 		  }
 		 }
 		}
@@ -11772,20 +11800,20 @@ class LatLongToTimezone
 	  if ($lat < 0.0) {
 	   if ($lng < -45.0) {
 		if ($lat < -45.0) {
-		 return kdLookup11($lat,$lng);
+		 return self::kdLookup11($lat,$lng);
 		} else {
 		 if ($lng < -67.5) {
 		  if ($lat < -22.5) {
 		   if ($lng < -79.0) {
 			return 0;
 		   } else {
-			return kdLookup12($lat,$lng);
+			return self::kdLookup12($lat,$lng);
 		   }
 		  } else {
-		   return kdLookup14($lat,$lng);
+		   return self::kdLookup14($lat,$lng);
 		  }
 		 } else {
-		  return kdLookup22($lat,$lng);
+		  return self::kdLookup22($lat,$lng);
 		 }
 		}
 	   } else {
@@ -11917,7 +11945,7 @@ class LatLongToTimezone
 			 }
 			} else {
 			 if ($lat < -6.0) {
-			  return kdLookup23($lat,$lng);
+			  return self::kdLookup23($lat,$lng);
 			 } else {
 			  return 144;
 			 }
@@ -11932,7 +11960,7 @@ class LatLongToTimezone
 		}
 	   }
 	  } else {
-	   return kdLookup40($lat,$lng);
+	   return self::kdLookup40($lat,$lng);
 	  }
 	 }
 	}
@@ -12489,7 +12517,7 @@ class LatLongToTimezone
 		 }
 		}
 	   } else {
-		return kdLookup42($lat,$lng);
+		return self::kdLookup42($lat,$lng);
 	   }
 	  }
 	 }
@@ -13950,7 +13978,7 @@ class LatLongToTimezone
 	  }
 	 } else {
 	  if ($lat < 16.5) {
-	   return kdLookup48($lat,$lng);
+	   return self::kdLookup48($lat,$lng);
 	  } else {
 	   if ($lng < 5.5) {
 		if ($lat < 19.5) {
@@ -15105,11 +15133,11 @@ class LatLongToTimezone
 	{
 	 if ($lat < 22.5) {
 	  if ($lng < 11.0) {
-	   return kdLookup49($lat,$lng);
+	   return self::kdLookup49($lat,$lng);
 	  } else {
 	   if ($lat < 11.0) {
 		if ($lng < 16.5) {
-		 return kdLookup50($lat,$lng);
+		 return self::kdLookup50($lat,$lng);
 		} else {
 		 if ($lat < 5.5) {
 		  if ($lng < 19.5) {
@@ -15242,12 +15270,12 @@ class LatLongToTimezone
 		 }
 		}
 	   } else {
-		return kdLookup51($lat,$lng);
+		return self::kdLookup51($lat,$lng);
 	   }
 	  }
 	 } else {
 	  if ($lng < 11.0) {
-	   return kdLookup52($lat,$lng);
+	   return self::kdLookup52($lat,$lng);
 	  } else {
 	   if ($lat < 33.5) {
 		if ($lng < 16.5) {
@@ -15372,7 +15400,7 @@ class LatLongToTimezone
 		 }
 		}
 	   } else {
-		return kdLookup53($lat,$lng);
+		return self::kdLookup53($lat,$lng);
 	   }
 	  }
 	 }
@@ -17053,7 +17081,7 @@ class LatLongToTimezone
 	 if ($lat < 22.5) {
 	  if ($lng < 33.5) {
 	   if ($lat < 11.0) {
-		return kdLookup55($lat,$lng);
+		return self::kdLookup55($lat,$lng);
 	   } else {
 		if ($lat < 16.5) {
 		 if ($lng < 28.0) {
@@ -17179,9 +17207,9 @@ class LatLongToTimezone
 	   }
 	  } else {
 	   if ($lat < 11.0) {
-		return kdLookup56($lat,$lng);
+		return self::kdLookup56($lat,$lng);
 	   } else {
-		return kdLookup57($lat,$lng);
+		return self::kdLookup57($lat,$lng);
 	   }
 	  }
 	 } else {
@@ -17248,14 +17276,14 @@ class LatLongToTimezone
 		  }
 		 }
 		} else {
-		 return kdLookup58($lat,$lng);
+		 return self::kdLookup58($lat,$lng);
 		}
 	   }
 	  } else {
 	   if ($lat < 33.5) {
-		return kdLookup59($lat,$lng);
+		return self::kdLookup59($lat,$lng);
 	   } else {
-		return kdLookup60($lat,$lng);
+		return self::kdLookup60($lat,$lng);
 	   }
 	  }
 	 }
@@ -18060,10 +18088,10 @@ class LatLongToTimezone
 	{
 	 if ($lat < 56.0) {
 	  if ($lng < 16.5) {
-	   return kdLookup63($lat,$lng);
+	   return self::kdLookup63($lat,$lng);
 	  } else {
 	   if ($lat < 50.5) {
-		return kdLookup64($lat,$lng);
+		return self::kdLookup64($lat,$lng);
 	   } else {
 		if ($lng < 19.5) {
 		 return 187;
@@ -18349,7 +18377,7 @@ class LatLongToTimezone
 		  }
 		 }
 		} else {
-		 return kdLookup62($lat,$lng);
+		 return self::kdLookup62($lat,$lng);
 		}
 	   } else {
 		if ($lat < 61.5) {
@@ -18379,7 +18407,7 @@ class LatLongToTimezone
 		}
 	   }
 	  } else {
-	   return kdLookup65($lat,$lng);
+	   return self::kdLookup65($lat,$lng);
 	  }
 	 } else {
 	  if ($lng < 11.0) {
@@ -19182,10 +19210,10 @@ class LatLongToTimezone
 		}
 	   }
 	  } else {
-	   return kdLookup67($lat,$lng);
+	   return self::kdLookup67($lat,$lng);
 	  }
 	 } else {
-	  return kdLookup68($lat,$lng);
+	  return self::kdLookup68($lat,$lng);
 	 }
 	}
 
@@ -20180,7 +20208,7 @@ class LatLongToTimezone
 		}
 	   }
 	  } else {
-	   return kdLookup72($lat,$lng);
+	   return self::kdLookup72($lat,$lng);
 	  }
 	 }
 	}
@@ -20766,7 +20794,7 @@ class LatLongToTimezone
 		}
 	   }
 	  } else {
-	   return kdLookup74($lat,$lng);
+	   return self::kdLookup74($lat,$lng);
 	  }
 	 }
 	}
@@ -21455,10 +21483,10 @@ class LatLongToTimezone
 	  }
 	 } else {
 	  if ($lat < 39.0) {
-	   return kdLookup76($lat,$lng);
+	   return self::kdLookup76($lat,$lng);
 	  } else {
 	   if ($lng < 73.0) {
-		return kdLookup77($lat,$lng);
+		return self::kdLookup77($lat,$lng);
 	   } else {
 		if ($lat < 42.0) {
 		 if ($lng < 75.5) {
@@ -22148,16 +22176,16 @@ class LatLongToTimezone
 		  return 251;
 		 }
 		} else {
-		 return kdLookup71($lat,$lng);
+		 return self::kdLookup71($lat,$lng);
 		}
 	   } else {
 		return 358;
 	   }
 	  } else {
 	   if ($lng < 56.0) {
-		return kdLookup73($lat,$lng);
+		return self::kdLookup73($lat,$lng);
 	   } else {
-		return kdLookup75($lat,$lng);
+		return self::kdLookup75($lat,$lng);
 	   }
 	  }
 	 } else {
@@ -22205,13 +22233,13 @@ class LatLongToTimezone
 	   }
 	  } else {
 	   if ($lng < 78.5) {
-		return kdLookup78($lat,$lng);
+		return self::kdLookup78($lat,$lng);
 	   } else {
 		if ($lat < 33.5) {
-		 return kdLookup79($lat,$lng);
+		 return self::kdLookup79($lat,$lng);
 		} else {
 		 if ($lng < 84.0) {
-		  return kdLookup80($lat,$lng);
+		  return self::kdLookup80($lat,$lng);
 		 } else {
 		  if ($lat < 43.5) {
 		   return 407;
@@ -22683,7 +22711,7 @@ class LatLongToTimezone
 	   }
 	  }
 	 } else {
-	  return kdLookup82($lat,$lng);
+	  return self::kdLookup82($lat,$lng);
 	 }
 	}
 
@@ -23415,7 +23443,7 @@ class LatLongToTimezone
 		}
 	   }
 	  } else {
-	   return kdLookup85($lat,$lng);
+	   return self::kdLookup85($lat,$lng);
 	  }
 	 } else {
 	  if ($lng < 61.5) {
@@ -24535,7 +24563,7 @@ class LatLongToTimezone
 		}
 	   }
 	  } else {
-	   return kdLookup88($lat,$lng);
+	   return self::kdLookup88($lat,$lng);
 	  }
 	 } else {
 	  if ($lng < 84.0) {
@@ -24585,7 +24613,7 @@ class LatLongToTimezone
 		}
 	   }
 	  } else {
-	   return kdLookup89($lat,$lng);
+	   return self::kdLookup89($lat,$lng);
 	  }
 	 }
 	}
@@ -24595,20 +24623,20 @@ class LatLongToTimezone
 	 if ($lng < 45.0) {
 	  if ($lat < 45.0) {
 	   if ($lng < 22.5) {
-		return kdLookup54($lat,$lng);
+		return self::kdLookup54($lat,$lng);
 	   } else {
-		return kdLookup61($lat,$lng);
+		return self::kdLookup61($lat,$lng);
 	   }
 	  } else {
 	   if ($lng < 22.5) {
-		return kdLookup66($lat,$lng);
+		return self::kdLookup66($lat,$lng);
 	   } else {
 		if ($lat < 67.5) {
 		 if ($lng < 33.5) {
-		  return kdLookup69($lat,$lng);
+		  return self::kdLookup69($lat,$lng);
 		 } else {
 		  if ($lat < 56.0) {
-		   return kdLookup70($lat,$lng);
+		   return self::kdLookup70($lat,$lng);
 		  } else {
 		   return 184;
 		  }
@@ -24788,22 +24816,22 @@ class LatLongToTimezone
 	  }
 	 } else {
 	  if ($lat < 45.0) {
-	   return kdLookup81($lat,$lng);
+	   return self::kdLookup81($lat,$lng);
 	  } else {
 	   if ($lng < 67.5) {
 		if ($lat < 67.5) {
 		 if ($lng < 56.0) {
 		  if ($lat < 56.0) {
-		   return kdLookup83($lat,$lng);
+		   return self::kdLookup83($lat,$lng);
 		  } else {
 		   if ($lat < 61.5) {
-			return kdLookup84($lat,$lng);
+			return self::kdLookup84($lat,$lng);
 		   } else {
 			return 184;
 		   }
 		  }
 		 } else {
-		  return kdLookup86($lat,$lng);
+		  return self::kdLookup86($lat,$lng);
 		 }
 		} else {
 		 if ($lng < 56.0) {
@@ -24867,9 +24895,9 @@ class LatLongToTimezone
 	   } else {
 		if ($lat < 67.5) {
 		 if ($lng < 78.5) {
-		  return kdLookup87($lat,$lng);
+		  return self::kdLookup87($lat,$lng);
 		 } else {
-		  return kdLookup90($lat,$lng);
+		  return self::kdLookup90($lat,$lng);
 		 }
 		} else {
 		 if ($lng < 78.5) {
@@ -25465,7 +25493,7 @@ class LatLongToTimezone
 	{
 	 if ($lat < -22.5) {
 	  if ($lng < 146.0) {
-	   return kdLookup93($lat,$lng);
+	   return self::kdLookup93($lat,$lng);
 	  } else {
 	   if ($lat < -34.0) {
 		if ($lng < 151.5) {
@@ -26470,7 +26498,7 @@ class LatLongToTimezone
 	  }
 	 } else {
 	  if ($lng < 106.5) {
-	   return kdLookup96($lat,$lng);
+	   return self::kdLookup96($lat,$lng);
 	  } else {
 	   if ($lat < 16.5) {
 		if ($lng < 109.5) {
@@ -27215,7 +27243,7 @@ class LatLongToTimezone
 	{
 	 if ($lng < 101.0) {
 	  if ($lat < 33.5) {
-	   return kdLookup98($lat,$lng);
+	   return self::kdLookup98($lat,$lng);
 	  } else {
 	   if ($lat < 39.0) {
 		if ($lng < 98.0) {
@@ -27405,7 +27433,7 @@ class LatLongToTimezone
 	  }
 	 } else {
 	  if ($lat < 33.5) {
-	   return kdLookup99($lat,$lng);
+	   return self::kdLookup99($lat,$lng);
 	  } else {
 	   if ($lng < 106.5) {
 		if ($lat < 42.0) {
@@ -28564,7 +28592,7 @@ class LatLongToTimezone
 	{
 	 if ($lng < 101.0) {
 	  if ($lat < 56.0) {
-	   return kdLookup103($lat,$lng);
+	   return self::kdLookup103($lat,$lng);
 	  } else {
 	   if ($lat < 58.5) {
 		if ($lng < 97.0) {
@@ -28800,7 +28828,7 @@ class LatLongToTimezone
 		}
 	   }
 	  } else {
-	   return kdLookup104($lat,$lng);
+	   return self::kdLookup104($lat,$lng);
 	  }
 	 }
 	}
@@ -29034,7 +29062,7 @@ class LatLongToTimezone
 	{
 	 if ($lat < 56.0) {
 	  if ($lng < 118.0) {
-	   return kdLookup106($lat,$lng);
+	   return self::kdLookup106($lat,$lng);
 	  } else {
 	   if ($lat < 50.5) {
 		if ($lng < 120.5) {
@@ -29730,7 +29758,7 @@ class LatLongToTimezone
 		}
 	   }
 	  } else {
-	   return kdLookup108($lat,$lng);
+	   return self::kdLookup108($lat,$lng);
 	  }
 	 } else {
 	  if ($lng < 130.5) {
@@ -29937,7 +29965,7 @@ class LatLongToTimezone
 	{
 	 if ($lng < 112.5) {
 	  if ($lat < 67.5) {
-	   return kdLookup105($lat,$lng);
+	   return self::kdLookup105($lat,$lng);
 	  } else {
 	   if ($lng < 101.0) {
 		return 290;
@@ -30056,9 +30084,9 @@ class LatLongToTimezone
 	 } else {
 	  if ($lat < 67.5) {
 	   if ($lng < 123.5) {
-		return kdLookup107($lat,$lng);
+		return self::kdLookup107($lat,$lng);
 	   } else {
-		return kdLookup109($lat,$lng);
+		return self::kdLookup109($lat,$lng);
 	   }
 	  } else {
 	   if ($lng < 123.5) {
@@ -30568,7 +30596,7 @@ class LatLongToTimezone
 		 return 37;
 		}
 	   } else {
-		return kdLookup111($lat,$lng);
+		return self::kdLookup111($lat,$lng);
 	   }
 	  }
 	 } else {
@@ -30953,7 +30981,7 @@ class LatLongToTimezone
 	{
 	 if ($lng < 157.5) {
 	  if ($lat < 67.5) {
-	   return kdLookup112($lat,$lng);
+	   return self::kdLookup112($lat,$lng);
 	  } else {
 	   if ($lng < 146.0) {
 		if ($lat < 78.5) {
@@ -31111,7 +31139,7 @@ class LatLongToTimezone
 	  }
 	 } else {
 	  if ($lat < 67.5) {
-	   return kdLookup113($lat,$lng);
+	   return self::kdLookup113($lat,$lng);
 	  } else {
 	   if ($lng < 168.5) {
 		if ($lat < 78.5) {
@@ -31211,16 +31239,16 @@ class LatLongToTimezone
 		 return 122;
 		} else {
 		 if ($lng < 22.5) {
-		  return kdLookup43($lat,$lng);
+		  return self::kdLookup43($lat,$lng);
 		 } else {
 		  if ($lat < -22.5) {
-		   return kdLookup44($lat,$lng);
+		   return self::kdLookup44($lat,$lng);
 		  } else {
 		   if ($lng < 33.5) {
 			if ($lat < -11.5) {
-			 return kdLookup45($lat,$lng);
+			 return self::kdLookup45($lat,$lng);
 			} else {
-			 return kdLookup46($lat,$lng);
+			 return self::kdLookup46($lat,$lng);
 			}
 		   } else {
 			if ($lat < -11.5) {
@@ -31322,7 +31350,7 @@ class LatLongToTimezone
 			  }
 			 }
 			} else {
-			 return kdLookup47($lat,$lng);
+			 return self::kdLookup47($lat,$lng);
 			}
 		   }
 		  }
@@ -31400,7 +31428,7 @@ class LatLongToTimezone
 		}
 	   }
 	  } else {
-	   return kdLookup91($lat,$lng);
+	   return self::kdLookup91($lat,$lng);
 	  }
 	 } else {
 	  if ($lat < 0.0) {
@@ -31447,7 +31475,7 @@ class LatLongToTimezone
 		   }
 		  }
 		 } else {
-		  return kdLookup92($lat,$lng);
+		  return self::kdLookup92($lat,$lng);
 		 }
 		}
 	   } else {
@@ -31471,7 +31499,7 @@ class LatLongToTimezone
 		 }
 		} else {
 		 if ($lng < 157.5) {
-		  return kdLookup94($lat,$lng);
+		  return self::kdLookup94($lat,$lng);
 		 } else {
 		  if ($lat < -22.5) {
 		   return 378;
@@ -31511,17 +31539,17 @@ class LatLongToTimezone
 		 if ($lng < 112.5) {
 		  if ($lat < 22.5) {
 		   if ($lng < 101.0) {
-			return kdLookup95($lat,$lng);
+			return self::kdLookup95($lat,$lng);
 		   } else {
-			return kdLookup97($lat,$lng);
+			return self::kdLookup97($lat,$lng);
 		   }
 		  } else {
-		   return kdLookup100($lat,$lng);
+		   return self::kdLookup100($lat,$lng);
 		  }
 		 } else {
 		  if ($lat < 22.5) {
 		   if ($lng < 123.5) {
-			return kdLookup101($lat,$lng);
+			return self::kdLookup101($lat,$lng);
 		   } else {
 			if ($lat < 11.0) {
 			 if ($lng < 129.0) {
@@ -31546,11 +31574,11 @@ class LatLongToTimezone
 			}
 		   }
 		  } else {
-		   return kdLookup102($lat,$lng);
+		   return self::kdLookup102($lat,$lng);
 		  }
 		 }
 		} else {
-		 return kdLookup110($lat,$lng);
+		 return self::kdLookup110($lat,$lng);
 		}
 	   } else {
 		if ($lat < 45.0) {
@@ -31588,7 +31616,7 @@ class LatLongToTimezone
 		  return 0;
 		 }
 		} else {
-		 return kdLookup114($lat,$lng);
+		 return self::kdLookup114($lat,$lng);
 		}
 	   }
 	  }
@@ -31598,9 +31626,9 @@ class LatLongToTimezone
 	private static function kdLookupRoot($lat, $lng)
 	{
 	 if ($lng < 0.0) {
-	  return kdLookup41($lat,$lng);
+	  return self::kdLookup41($lat,$lng);
 	 } else {
-	  return kdLookup115($lat,$lng);
+	  return self::kdLookup115($lat,$lng);
 	 }
 	}
 
