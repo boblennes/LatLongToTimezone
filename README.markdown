@@ -1,15 +1,15 @@
-# LatLongToTimezone Conversion Library for PHP Codeigniter/Bonfire.
+# LatLongToTimezone Conversion Library for PHP Codeigniter/Bonfire
 
 ### Latitude / Longitude Conversion To Timezone within 35 miles accuracy, without using external database
- 
+Also includes methods for using Json files 
 Version 0.1
 Still WIP
 
 ## Usage
 
 Add to your library folder.
-Call from your controller.
-Example controller (Bonfire):
+Call from your controller (also add a view for output).
+Example controller (Bonfire) not using Json files:
 ```php
 	public function testconvert($lat, $lng)
 	{
@@ -21,7 +21,7 @@ Example controller (Bonfire):
 		Template::set("tz", $s);
 		Template::render();
 	}
-
+```
 
 ## Extras (not required)
 1) Also includes other methods for parsing JSON data
@@ -30,3 +30,5 @@ Example controller (Bonfire):
 
 ## Coming Soon
 - convert zip to timezone
+- how to use json files for greater accuracy, if needed
+- a Bonfire module
